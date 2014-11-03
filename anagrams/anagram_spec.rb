@@ -1,15 +1,18 @@
-require File.expand_path(File.join(File.dirname(__FILE__), "anagram"))
+require_relative "anagram"
 
 describe Anagram do
-  let(:words) { %w( abc ab bca bac ba bc ) }
-  let(:result) {[ %w( abc bca bac ), %w( ab ba ), %w( bc ) ]}
-  
-  it "should collect anagram sets" do
-    anagram = Anagram.new(words)
-    anagram.sets.should =~ result
-  end
-    
-  it "should accept an io object" do
-    Anagram.from_io(StringIO.new(words.join("\n"))).should =~ result
-  end
+	
+	let(:single_word) {["iceman"]}
+	let(:word_list) {["iceman", "bat"]}
+
+	it "should find all possible anagrams of a single word." do
+		anagram = Anagram.new(single_word)
+		expect(anagram).to eq(["iceman", "anemic", "cinema"])
+	end
+
+	it "should find all possible anagrams of multiple words." do
+		anagram = Anagram.new(word_list)
+		expect(anagram).to eq([["iceman", "anemic", "cinema"],["bat", "tab"]])
+	end
+
 end
