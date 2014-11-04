@@ -1,54 +1,21 @@
+
 def update_quality(items)
   items.each do |item|
-    update_item(item)
-  end
-end
-
-def update_item(item)
-  update_sell_in(item)
-  update_quality_for(item)
-end
-
-def update_sell_in(item)
-  if item.name != 'Sulfuras, Hand of Ragnaros'
-    item.sell_in -= 1
-  end
-end
-
-def update_quality_for(item)
-  delta = determine_delta(item)
-  item.quality = clamp_quality(item.quality + delta) if delta
-end
-
-def determine_delta(item)
-  case item.name
-    when 'Aged Brie'
-      -default_delta(item.sell_in)
-    when 'Backstage passes to a TAFKAL80ETC concert'
-      if item.sell_in < 0
-        -item.quality
-      elsif item.sell_in < 5
-        3
-      elsif item.sell_in < 10
-        2
-      else
-        1
-      end
-    when 'Sulfuras, Hand of Ragnaros'
-      nil # noop
-    when /Conjured/
-      2 * default_delta(item.sell_in) 
+    if item.name == 'Aged Brie' || item.name == 'Backstage passes to a TAFKAL80ETC concert' || item.name == 'Sulfuras, Hand of Ragnaros'
+      update_special_item(item)
     else
-      default_delta(item.sell_in)
+      update_regular_item(item)
     end
+  end
 end
 
-def default_delta(sell_in)
-  sell_in <= 0 ? -2 : -1
+def update_special_item(item)
+  
 end
 
-def clamp_quality(value)
-  [50, [0, value].max].min
+def update_regular_item(item)
+  item.quality -= 1
+  item.sell_in -= 1
 end
 
 
