@@ -74,20 +74,29 @@ end
 # puts "SWITCH DOOR -------------"
 # p g.switch_door_number
 
-games = 10000
+games = 10_000
 stay = 0
 swap = 0
-games.times do
-  g = Game.new
-  stay += 1 if g.stay_win
-  swap += 1 if g.swap_win
-end
+# games.times do
+#   g = Game.new
+#   stay += 1 if g.stay_win
+#   swap += 1 if g.swap_win
+# end
 
-stay_percentage = (((stay.to_f / games) * 100).to_i)
-swap_percentage = (((swap.to_f / games) * 100).to_i)
+# stay_percentage = (((stay.to_f / games) * 100).to_i)
+# swap_percentage = (((swap.to_f / games) * 100).to_i)
 
-puts "Staying works #{stay_percentage}% of the time."
-puts "Swapping works #{swap_percentage}% of the time."
+# puts "Staying works #{stay_percentage}% of the time."
+# puts "Swapping works #{swap_percentage}% of the time."
 
 
+# Benchmark.bm do |x|
+#   x.report { 
+#   games.times do
+# 	  g = Game.new
+# 	  stay += 1 if g.stay_win
+# 	  swap += 1 if g.swap_win
+# 	end }
+#   x.report { g = Game.new}
+# end
 
